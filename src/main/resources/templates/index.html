@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Решение выражений</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="container">
+    
+        <form method="POST" action="/" class="form">
+            <input type="text" name="expression" placeholder="Введите выражение" required>
+            <button type="submit" name="action" value="add" class="btn">Добавить</button>
+        </form>
+
+        <h2>Список</h2>
+        <ul class="expression-list">
+            <li th:each="expr, iterStat : ${expressions}">
+                <span th:text="${expr}"></span>
+                <form method="POST" action="/" style="display: inline;">
+                    <input type="hidden" name="index" th:value="${iterStat.index}">
+                    <button type="submit" name="action" value="delete" class="btn delete-btn">Удалить</button>
+                    <button type="submit" name="action" value="solve" class="btn solve-btn">Решить</button>
+                </form>
+            </li>
+        </ul>
+
+        <div class="result" th:if="${solvedExpression}">
+            <p><strong>Выражение:</strong> <span th:text="${solvedExpression}"></span></p>
+            <p><strong>Ответ:</strong> <span th:text="${result}"></span></p>
+        </div>
+    </div>
+</body>
+</html>
